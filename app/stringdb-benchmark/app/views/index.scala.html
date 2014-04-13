@@ -1,7 +1,12 @@
 @(message: String)
-
-@main("Welcome to Play") {
-
-    @play20.welcome(message)
-
-}
+    @main("string-db") {
+        <div id="applicationHost">
+            <div class="splash">
+                <div class="message">
+                @message
+                </div>
+                <i class="icon-spinner icon-2x icon-spin active"></i>
+            </div>
+        </div>
+        @helper.requireJs(core = routes.Assets.at("lib/require/require.js").url, module = routes.Assets.at("app/main").url)
+    }

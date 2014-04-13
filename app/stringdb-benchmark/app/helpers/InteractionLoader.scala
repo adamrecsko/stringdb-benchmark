@@ -18,23 +18,9 @@ object InteractionLoader {
           SQL("delete from interactions").executeUpdate()
           lines.foreach(l => {
             val items = l.split(" ")
-            val interaction = new Interaction(
-              items(0),
-              items(1),
-              items(2),
-              items(3),
-              items(4),
-              items(5),
-              items(6),
-              items(7),
-              items(8),
-              items(9)
-            )
-
-
           SQL("INSERT INTO interactions values ({protein1},{protein2},{neighborhood},{fusion},{cooccurence},{coexpression},{experimental},{database},{textmining},{combined_score})")
             .on(
-              'protein1 -> items(0),
+              'protein1 ->items(0),
               'protein2 -> items(1),
               'neighborhood -> items(2),
               'fusion -> items(3),
@@ -46,8 +32,6 @@ object InteractionLoader {
               'combined_score -> items(9)
 
             ).executeInsert()
-
-
           }
           )
 

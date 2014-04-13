@@ -1,0 +1,48 @@
+<div class="container">
+    <h2>
+        mysql benchmarks  <small> <strong data-bind="text:proteinCount"></strong> interactions in the database</small>
+
+    </h2>
+    <hr/>
+
+    <div class="row">
+
+
+
+
+
+
+        <div class="col-md-5" data-bind="foreach:benchmarks">
+
+
+            <div class="row" >
+
+                <div class="col-md-12">
+                    <div class="blockquote-box blockquote-info clearfix">
+                        <div class="square pull-left">
+                            <span class="glyphicon glyphicon glyphicon-dashboard glyphicon-lg"></span>
+                        </div>
+                        <h4 data-bind="text:label"></h4>
+                        <p data-bind="text:description"></p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+
+        <div class="col-md-7">
+             <div id="speedchart_mysql"></div>
+        </div>
+
+
+
+
+    </div>
+
+</div>
