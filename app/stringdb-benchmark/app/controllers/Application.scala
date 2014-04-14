@@ -31,9 +31,11 @@ object Application extends Controller {
            Ok(Json.stringify(res))
        }
      }
-
-
   }
+
+
+
+
   def benchMysql = Action.async {
          future{
           val time =  Measure.time({
