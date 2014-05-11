@@ -52,7 +52,7 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator','bootstrap','j
     system.debug(true);
     //>>excludeEnd("build");
 
-    app.title = 'CyborgTitan';
+    app.title = 'String-db benchmark';
 
     app.configurePlugins({
         router:true,

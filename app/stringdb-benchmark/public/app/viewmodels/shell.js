@@ -8,9 +8,9 @@ define(['plugins/router', 'durandal/app'], function (router, app) {
         activate: function () {
             router.map([
                 { route: '', title:'Home', moduleId: 'viewmodels/welcome', nav: true },
-                { route: 'mysql', title:'MySQL', moduleId: 'viewmodels/mysql', nav: true },
-                { route: 'neo4j', title:'Neo4J', moduleId: 'viewmodels/neo4j', nav: true },
-                { route: 'graph', title:'Graph', moduleId: 'viewmodels/graph', nav: true }
+                { route: 'benchmarks', title:'MySQL', moduleId: 'viewmodels/mysql', nav: true },
+                { route: 'graph', title:'Graph', moduleId: 'viewmodels/graph', nav: true },
+                { route: 'bench/:name', title:'Benchmark', moduleId: 'viewmodels/bench', nav: true },
 
             ]).buildNavigationModel();
 

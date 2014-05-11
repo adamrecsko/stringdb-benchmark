@@ -11,7 +11,7 @@ import play.api.Play.current
 import anorm._
 import org.anormcypher._
 import play.api.libs.json.{JsValue, JsArray, Json}
-import models.Interaction
+import models.{Benchmarks, Interaction}
 import scala.util.Random
 import scala.collection.immutable.HashSet
 
@@ -75,43 +75,22 @@ object Application extends Controller {
        }
   }
 
+
+
   def benchMysql = Action.async {
          future{
-          val time =  Measure.time({
-             val start = System.currentTimeMillis;
-             DB.withConnection {
-               implicit conn =>
-                   SQL("SELECT count(i2.protein2) FROM interactions AS i1  INNER JOIN interactions AS i2 ON i1.protein2 = i2.protein1").execute()
-             }
-           })
-           val time2 =  Measure.time({
-             val start = System.currentTimeMillis;
-             DB.withConnection {
-               implicit conn =>
-                 SQL("SELECT count(i2.protein2) FROM interactions AS i1  INNER JOIN interactions AS i2 ON i1.protein2 = i2.protein1 order by i1.combined_score").execute()
-             }
-           })
-
-
-
-          val res =  Json.arr(
-              Json.obj(
-                 "description"->"SELECT count(i2.protein2) FROM interactions AS i1  INNER JOIN interactions AS i2 ON i1.protein2 = i2.protein1",
-                 "label" -> "Count all protein interactions",
-                 "value" -> time
-              ),
-            Json.obj(
-              "description"->"SELECT count(i2.protein2) FROM interactions AS i1  INNER JOIN interactions AS i2 ON i1.protein2 = i2.protein1 order by combined_score",
-              "label" -> "order by combined_score",
-              "value" -> time2
-            )
-            )
-           Ok(Json.stringify(res))
-
+           Ok(Json.stringify(Benchmarks.getAll))
          }
+  }
 
+
+  def runBench(name:String) = Action.async {
+        future{
+           Ok(Benchmarks.runBench(name)).as("application/json")
+        }
 
   }
+
 
   def benchNeo = Action.async{
 
@@ -169,7 +148,10 @@ object Application extends Controller {
            "nodes" ->Json.toJson( l  ),
            "links" ->Json.toJson ( rel)
         )
-         Ok(res).as("JSON")
+        Ok(res).as("JSON")
+
+
+
       }
 
 
