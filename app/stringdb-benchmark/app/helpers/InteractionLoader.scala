@@ -4,12 +4,14 @@ import play.api.db.DB
 import play.api.Play.current
 import models.Interaction
 import anorm._
+import org.anormcypher._
+
 /**
  * Created by adee on 2014.04.13..
  */
 object InteractionLoader {
     implicit def string2Int(s: String): Int = augmentString(s).toInt
-    def load(file:String) = {
+    def loadMysql(file:String) = {
 
       val lines = scala.io.Source.fromFile(file).getLines()
 
@@ -34,8 +36,28 @@ object InteractionLoader {
               ).executeInsert()
           }
           )
-
       }
+  }
+
+  def loadNeo(file:  String) = {
+    val lines = scala.io.Source.fromFile(file).getLines()
+    println("Create Proteins")
+    lines.foreach(l => {
+      val items = l.split(" ")
+      Cypher(
+        """
+          |CREATE (n:Interaction{ protein1: {p1}, protein2:{p2}, combined_score: {cs}  })
+        """.stripMargin).on(
+            "p1"->items(0),
+            "p2"->items(1),
+            "cs"->items(9)
+        ).execute()
+
+    })
+    println("Create relations")
+    Cypher(""" MATCH (a:Interaction), (b:Interaction) WHERE a.protein2=b.protein1 CREATE (a)-[:REL]->(b);
+             | """.stripMargin).execute()
+
   }
 
 }

@@ -10,7 +10,12 @@
         'morris': '../lib/morris/js/morris',
         'raphael':'../lib/raphael/raphael-min',
         'komapping': '../lib/knockout/knockout.mapping',
-        'benchmark': 'models/benchmark'
+        'benchmark': 'models/benchmark',
+        'sigma' : '../lib/sigma/sigma.min',
+        'sigma.json':  '../lib/sigma/plugins/sigma.parsers.json.min',
+        'd3':'../lib/d3/d3',
+        'visualization':'../lib/neo4j/visualization'
+
     },
     shim: {
         'bootstrap': {
@@ -21,9 +26,22 @@
             deps: ['raphael'],
             exports: 'Morris'
         },
+
+        'sigma': {
+            exports: 'sigma'
+        },
+        'sigma.json': {
+            deps: ['sigma'],
+            exports: 'sigma'
+        },
+
         komapping: {
             deps: ['knockout'],
             exports: 'komapping'
+        },
+
+        d3: {
+            exports: 'd3'
         }
 
     }
@@ -41,6 +59,8 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator','bootstrap','j
         dialog: true,
         widget: true
     });
+
+
 
     app.start().then(function() {
         viewLocator.useConvention();

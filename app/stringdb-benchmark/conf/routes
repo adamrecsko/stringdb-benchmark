@@ -3,12 +3,16 @@
 # ~~~~
 
 # Home page
-GET        /                    controllers.Application.index
+GET        /                             controllers.Application.index
 
-GET        /mysql               controllers.Application.benchMysql
-GET        /mysqlcount          controllers.Application.getProteinCount
+GET        /mysql                        controllers.Application.benchMysql
+GET        /neo4j                        controllers.Application.benchNeo
+
+
+GET        /mysqlcount                   controllers.Application.getProteinCount
+GET        /graph/:protein/:limit        controllers.Application.getGraph(protein:String, limit:Int)
 
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file        controllers.Assets.at(path="/public", file)
+GET        /assets/*file                 controllers.Assets.at(path="/public", file)
