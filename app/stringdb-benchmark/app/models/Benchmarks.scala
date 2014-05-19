@@ -61,7 +61,7 @@ trait Benchmark {
 
 
 object CountProteinMysql extends Benchmark {
-   val bench = "SELECT count(i2.protein2) FROM interactions AS i1  INNER JOIN interactions AS i2 ON i1.protein2 = i2.protein1"
+   val bench = "SELECT SQL_NO_CACHE count(i2.protein2) FROM interactions AS i1  INNER JOIN interactions AS i2 ON i1.protein2 = i2.protein1"
    def runBench = {
      val time =  Measure.time({
        DB.withConnection {
@@ -75,7 +75,7 @@ object CountProteinMysql extends Benchmark {
 }
 
 object OrderByCombinedScoreMysql extends Benchmark {
-  val bench = "SELECT count(i2.protein2) FROM interactions AS i1  INNER JOIN interactions AS i2 ON i1.protein2 = i2.protein1 order by i1.combined_score"
+  val bench = "SELECT SQL_NO_CACHE count(i2.protein2) FROM interactions AS i1  INNER JOIN interactions AS i2 ON i1.protein2 = i2.protein1 order by i1.combined_score"
   def runBench = {
     val time =  Measure.time({
       DB.withConnection {
@@ -91,7 +91,7 @@ object OrderByCombinedScoreMysql extends Benchmark {
 
 object MaxInteractionMysql extends Benchmark {
   val bench ="""
-     SELECT max(cnt)  FROM  (SELECT count(i2.protein2) as cnt FROM interactions AS i1  INNER JOIN interactions AS i2 ON
+     SELECT SQL_NO_CACHE max(cnt)  FROM  (SELECT count(i2.protein2) as cnt FROM interactions AS i1  INNER JOIN interactions AS i2 ON
       i1.protein2 = i2.protein1 GROUP BY  i1.protein1 ) as counts
     """.stripMargin
   def runBench = {
@@ -109,7 +109,7 @@ object MaxInteractionMysql extends Benchmark {
 
 object MinInteractionMysql extends Benchmark {
   val bench ="""
-     SELECT min(cnt)  FROM  (SELECT count(i2.protein2) as cnt FROM interactions AS i1  INNER JOIN interactions AS i2 ON
+     SELECT SQL_NO_CACHE min(cnt)  FROM  (SELECT count(i2.protein2) as cnt FROM interactions AS i1  INNER JOIN interactions AS i2 ON
       i1.protein2 = i2.protein1 GROUP BY  i1.protein1 ) as counts
              """.stripMargin
   def runBench = {
