@@ -5,7 +5,7 @@ PÁZMÁNY PÉTER CATHOLIC UNIVERSITY - Faculty of Information Technology and Bio
 
 
 
-** Benchmark the MySQL and the Neo4J querys.**
+__Benchmark the MySQL and the Neo4J querys.__
 
 The database loaded from http://string-db.org/protein.links.detailed.v9.1.txt.gz - Homo sapiens 
 
